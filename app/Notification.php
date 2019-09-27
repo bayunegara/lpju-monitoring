@@ -12,9 +12,10 @@ class Notification extends Model
         'ID_HARDWARE',
         'NOTIF',
         'STATUS',
+        'created_at'
     ];
 
     public function table_hardwares(){
-        return $this->belongsTo("App\Hardware");
+        return $this->belongsTo("App\Hardware", 'ID_HARDWARE');
     }
 }

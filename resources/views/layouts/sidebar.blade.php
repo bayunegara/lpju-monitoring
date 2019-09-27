@@ -6,14 +6,14 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i>
-            <span>Dashboard</span>
+        <li {{ (Request::is('/') ? 'class=active' : '') }}>
+          <a href="{{ URL('/') }}">
+            <i class="fa fa-home"></i>
+            <span>Home</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li {{ (Request::is('hardwares') ? 'class=active' : '') }}>
+          <a href="{{ URL('hardwares') }}">
             <i class="fa fa-th"></i>
             <span>Hardwares</span>
           </a>

@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Hardware extends Model
 {
     protected $table    = 'table_hardwares';
-
+    protected $primaryKey = 'ID';
     protected $fillable = [
+        'SLUG',
         'GSM_NUMBER',
         'LABEL_HARDWARE',
         'CHAR_HARDWARE',

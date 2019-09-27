@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <script src="{{ asset('js/app.js') }}" ></script>
   <title>AdminLTE 2 | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -29,6 +31,24 @@
   <link rel="stylesheet" href="{{url('adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{url('adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTBf_MxZwaU00vt96MOz9-3lcFLb1NI6M&callback=initMap"
+  type="text/javascript"></script>
+
+  <script>
+        // fungsi initialize untuk mempersiapkan peta
+        function initialize() {
+        var propertiPeta = {
+            center:new google.maps.LatLng(-8.5830695,116.3202515),
+            zoom:9,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
+
+        var peta = new google.maps.Map(document.getElementById("googleMap"), propertiPeta);
+        }
+
+        // event jendela di-load
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,6 +64,7 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
+        <div id="line-example"></div>
 
   <!-- HEADER -->
   @include('layouts.header')
@@ -101,7 +122,34 @@
 <script src="{{url('adminlte/dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{url('adminlte/dist/js/demo.js')}}"></script>
+<!-- Data-Table -->
+<script src="{{url('adminlte\bower_components\datatables.net\js\jquery.dataTables.min.js')}}"></script>
+<script src="{{url('adminlte\bower_components\datatables.net-bs\js\dataTables.bootstrap.min.js')}}"></script>
+<!-- DataTables -->
+<link rel="stylesheet" href="{{url('adminlte\bower_components\datatables.net-bs\css\dataTables.bootstrap.min.css')}}">
 
+<script>
+        $(document).ready(function () {
+            $('#hardwaresTable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax":{
+                         "url": "{{ url('hardwareData') }}",
+                         "dataType": "json",
+                         "type": "POST",
+                         "data":{ _token: "{{csrf_token()}}"}
+                       },
+                "columns": [
+                    { "data": "NO" },
+                    { "data": "LABEL HARDWARE" },
+                    { "data": "GSM NUMBER" },
+                    { "data": "ACTIONS" }
+                ]
+
+            });
+        });
+
+    </script>
 @section('js')
 
 @show

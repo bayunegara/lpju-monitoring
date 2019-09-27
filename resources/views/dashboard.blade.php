@@ -4,7 +4,7 @@
 @section('content')
 <section class="content-header">
       <h1>
-        GILACODING
+        NOTIFICATION
         <small>it all starts here</small>
       </h1>
       <ol class="breadcrumb">
@@ -20,7 +20,7 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Title</h3>
+          <h3 class="box-title">Notification List</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -31,7 +31,19 @@
           </div>
         </div>
         <div class="box-body">
-          Start creating your amazing application!
+            @foreach($notif as $ntf)
+                @if($ntf->STATUS == '1')
+                <div class="alert alert-warning alert-dismissible">
+                    {{-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> --}}
+                    <h4><i class="icon fa fa-warning"></i>{{$ntf->table_hardwares->LABEL_HARDWARE}}, {{$ntf->NOTIF}}</h4>
+                </div>
+                @else
+                <div class="alert alert-success alert-dismissible">
+                        {{-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> --}}
+                        <h4><i class="icon fa fa-check"></i>{{$ntf->table_hardwares->LABEL_HARDWARE}}, {{$ntf->NOTIF}}</h4>
+                </div>
+                @endif
+            @endforeach
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
